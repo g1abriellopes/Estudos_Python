@@ -1,4 +1,5 @@
 import collections
+import inspect
 
 Card = collections.namedtuple('Card', ['rank', 'suit'])
 
@@ -14,3 +15,17 @@ class FrenchDeck:
 
     def __getitem__(self, position):
         return self._cards[position]
+
+
+# # Criando uma instância do baralho
+# baralho = FrenchDeck()
+
+# # Imprimindo as cartas do baralho
+# for carta in baralho:
+#     print(carta)
+
+# Obtendo o código-fonte do namedtuple
+source_code = inspect.getsource(collections.namedtuple)
+
+# Imprimindo o código-fonte
+print(source_code)
