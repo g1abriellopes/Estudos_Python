@@ -1,31 +1,8 @@
-import collections
-import inspect
-
-Card = collections.namedtuple('Card', ['rank', 'suit'])
-
-class FrenchDeck:
-    ranks = [str(n) for n in range(2, 11)] + list('JQKA')
-    suits = 'spades diamonds clubs hearts'.split()
-
-    def __init__(self):
-        self._cards = [Card(rank, suit) for suit in self.suits for rank in self.ranks]
-
-    def __len__(self):
-        return len(self._cards)
-
-    def __getitem__(self, position):
-        return self._cards[position]
-
-
-# # Criando uma instância do baralho
-# baralho = FrenchDeck()
-
-# # Imprimindo as cartas do baralho
-# for carta in baralho:
-#     print(carta)
-
-# Obtendo o código-fonte do namedtuple
-source_code = inspect.getsource(collections.namedtuple)
-
-# Imprimindo o código-fonte
-print(source_code)
+        dados_input = DadosInput().orcamento()
+        produtos = ['CF_ESM', 'F_ESM', 'CAP_ESM', 'D_PROD_ESM']
+        colunas_merge = ['Data Base', 'Planta', 'Quantidade']
+        custo_fixo = dados_input[dados_input['Id Produto'] == 'CF_ESM']
+        for produto in produtos[1:]:
+            produto_data = dados_input[dados_input['Id Produto'] == produto][colunas_merge]
+            coluna_suffix = f'_{produto[:3]}'
+            custo_fixo = custo_fixo.merge(produto_data, on=['Data Base', 'Planta'], how='left', suffixes=('', coluna_suffix))
